@@ -1,22 +1,33 @@
 name:  Lint Code Base
 
-on:  [push, pull_request]
+# Events
 
-jobs:
-  build:
-    name:  Lint Code Base
+on:
+  push:
+    branches:
+      -main
+
+  pull_requests:
+    branches:
+      -main
+
+  workflo_dispatch:
+
+
+  #Workflow / Jobs
+
+  jobs:
+    build:
     runs-on:  ubuntu-latest
-
     steps:
-
-      -name:  Checkout Code
-       uses:  actions/checkout@v3
-       with:
+      - name:  Checkout Code
+      - uses:  actions/checkout@v3
+      - with:
          fetch-depth:  0
 
-      -name:  Lint Code Base
-       uses:  github/super-linter@v4
-       env:
+      - name:  Lint Code Base
+      - uses:  github/super-linter@v4
+      - env:
          VALIDATE_ALL_CODEBASE:  true
          VALIDATE_HTML: true
          GITHUB_TOKEN:  ${{ secrets.GITHUB_TOKEN }}
